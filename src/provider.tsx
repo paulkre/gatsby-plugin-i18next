@@ -3,9 +3,14 @@ import i18next from "i18next";
 import { I18nextProvider as I18NextProviderBase } from "react-i18next";
 
 import { useI18nextContext } from "./context";
-import type { TranslationNode } from "./types";
 
-export const I18nextProvider: React.FC<{ nodes: TranslationNode[] }> = ({
+export type TranslationData = {
+  language: string;
+  ns: string;
+  data: string;
+};
+
+export const I18nextProvider: React.FC<{ nodes: TranslationData[] }> = ({
   children,
   nodes,
 }) => {

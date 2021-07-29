@@ -1,6 +1,7 @@
 import React from "react";
 import type { WrapPageElementBrowserArgs } from "gatsby";
-import { PageContext } from "../types";
+
+import { PageContext } from "../page-context";
 import { I18nextContextProvider } from "../context";
 import { defaultPluginOptions, PluginOptions } from "../options";
 

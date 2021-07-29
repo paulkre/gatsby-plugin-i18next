@@ -1,6 +1,48 @@
-import type { CreateNodeArgs, Node } from "gatsby";
+import type { CreateNodeArgs, Node, NodeInput } from "gatsby";
+
 import { defaultPluginOptions, PluginOptions } from "../options";
-import type { FileSystemNode, TranslationNodeInput } from "../types";
+
+// Taken from https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-source-filesystem/index.d.ts
+// No way to refer it without directly depending on gatsby-source-filesystem.
+type FileSystemNode = Node &
+  Record<string, unknown> & {
+    absolutePath: string;
+    accessTime: string;
+    birthTime: Date;
+    changeTime: string;
+    extension: string;
+    modifiedTime: string;
+    prettySize: string;
+    relativeDirectory: string;
+    relativePath: string;
+    sourceInstanceName: string;
+
+    // parsed path typings
+    base: string;
+    dir: string;
+    ext: string;
+    name: string;
+    root: string;
+
+    // stats
+    atime: Date;
+    atimeMs: number;
+    ctime: Date;
+    ctimeMs: number;
+    gid: number;
+    mode: number;
+    mtime: Date;
+    mtimeMs: number;
+    size: number;
+    uid: number;
+  };
+
+interface TranslationNodeInput extends NodeInput {
+  language: string;
+  ns: string;
+  data: string;
+  fileAbsolutePath: string;
+}
 
 export async function onCreateNode(
   {
