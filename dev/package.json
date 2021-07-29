@@ -1,0 +1,28 @@
+{
+  "name": "gatsby-dev-app",
+  "private": true,
+  "description": "Gatsby development environment",
+  "author": "Paul Kretschel",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "extract-translations": "babel --config-file ./babel-extract.config.js -o tmp/chunk.js 'src/**/*.{js,jsx}' && rimraf tmp"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "babel-plugin-i18next-extract": "^0.8.3",
+    "gatsby": "^3.8.0",
+    "gatsby-source-filesystem": "^3.8.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "rimraf": "^3.0.2"
+  }
+}

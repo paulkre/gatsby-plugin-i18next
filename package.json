@@ -1,0 +1,47 @@
+{
+  "name": "@paulkre/gatsby-plugin-i18next",
+  "description": "Translate your Gatsby site into multiple languages",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Paul Kretschel <paul.kretschel@icloud.com>",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "I18n",
+    "I18next",
+    "translations",
+    "languages"
+  ],
+  "bugs": {
+    "url": "https://github.com/paulkre/gatsby-plugin-i18next"
+  },
+  "homepage": "https://github.com/paulkre/gatsby-plugin-i18next#readme",
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "gatsby": "^3",
+    "i18next": "^20",
+    "react-i18next": "^11"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "path-to-regexp": "^6.2.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.16.0",
+    "@types/bluebird": "^3.5.36",
+    "@types/react-dom": "^17.0.9",
+    "gatsby": "^3.10.2",
+    "i18next": "^20.3.5",
+    "prettier": "^2.3.2",
+    "react-i18next": "^11.11.4",
+    "typescript": "^4.3.5"
+  },
+  "files": [
+    "LICENSE",
+    "lib/",
+    "gatsby-node.js"
+  ]
+}
