@@ -41,6 +41,7 @@
   },
   "files": [
     "LICENSE",
+    "index.d.ts",
     "lib/",
     "gatsby-node.js",
     "gatsby-browser.js",
