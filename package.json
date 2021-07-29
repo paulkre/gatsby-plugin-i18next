@@ -42,6 +42,8 @@
   "files": [
     "LICENSE",
     "lib/",
-    "gatsby-node.js"
+    "gatsby-node.js",
+    "gatsby-browser.js",
+    "gatsby-ssr.js"
   ]
 }
