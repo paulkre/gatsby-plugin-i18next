@@ -3,10 +3,20 @@ import { CreatePageArgs, Page } from "gatsby";
 import type { I18nPageContext } from "../context";
 import { defaultPluginOptions, PluginOptions } from "../options";
 
+export type I18nBlueprintContext = Record<string, unknown> & {
+  language: string;
+};
+
 function isI18nPageContext(
   ctx: Record<string, unknown>
 ): ctx is I18nPageContext {
   return typeof ctx.i18n === "object";
+}
+
+function isI18nBlueprintContext(
+  ctx: Record<string, unknown>
+): ctx is I18nBlueprintContext {
+  return typeof ctx.language === "string" && ctx.language.length === 2;
 }
 
 export function onCreatePage(
@@ -15,9 +25,6 @@ export function onCreatePage(
 ) {
   //Exit if the page has already been processed.
   if (isI18nPageContext(page.context)) return;
-
-  const { i18nCustom } = page.context;
-  if (i18nCustom) delete page.context.i18nCustom;
 
   const { defaultLanguage, defaultNS, languages } = {
     ...defaultPluginOptions,
@@ -59,9 +66,12 @@ export function onCreatePage(
     deletePage(page);
   } catch {}
 
-  createPage(generatePage({ language: defaultLanguage }));
+  if (isI18nBlueprintContext(page.context)) {
+    createPage(generatePage({ language: page.context.language }));
+    return;
+  }
 
-  if (i18nCustom) return;
+  createPage(generatePage({ language: defaultLanguage }));
 
   const alternativeLanguages = languages.filter(
     (lng) => lng !== defaultLanguage
