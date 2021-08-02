@@ -1,5 +1,11 @@
 # @paulkre/gatsby-plugin-i18next
 
+## 2.1.1
+
+### Patch Changes
+
+- dce8a64: The API for generating custom pages has changed.
+
 ## 2.1.0
 
 ### Minor Changes
