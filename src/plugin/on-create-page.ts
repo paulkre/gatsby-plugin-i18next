@@ -16,6 +16,9 @@ export function onCreatePage(
   //Exit if the page has already been processed.
   if (isI18nPageContext(page.context)) return;
 
+  const { i18nCustom } = page.context;
+  if (i18nCustom) delete page.context.i18nCustom;
+
   const { defaultLanguage, defaultNS, languages } = {
     ...defaultPluginOptions,
     ...pluginOptions,
@@ -52,15 +55,17 @@ export function onCreatePage(
     };
   }
 
-  const newPage = generatePage({ language: defaultLanguage });
-  const alternativeLanguages = languages.filter(
-    (lng) => lng !== defaultLanguage
-  );
-
   try {
     deletePage(page);
   } catch {}
-  createPage(newPage);
+
+  createPage(generatePage({ language: defaultLanguage }));
+
+  if (i18nCustom) return;
+
+  const alternativeLanguages = languages.filter(
+    (lng) => lng !== defaultLanguage
+  );
 
   alternativeLanguages.forEach((lng) => {
     const translatedPage = generatePage({
