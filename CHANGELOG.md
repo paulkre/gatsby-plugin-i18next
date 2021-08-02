@@ -1,5 +1,18 @@
 # @paulkre/gatsby-plugin-i18next
 
+## 2.0.0
+
+### Major Changes
+
+- 59743c5: Option "siteUrl" has been removed.
+- 97af4e3: Option "pages" for configuring specific pages has been removed.
+- c13e17f: Option "generateDefaultLanguagePage" has been removed.
+
+### Patch Changes
+
+- 0147b74: Context types have been renamed.
+- 381fb41: Missing field "originalPath" while querying file nodes is now fixed.
+
 ## 1.1.0
 
 ### Minor Changes
