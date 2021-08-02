@@ -1,5 +1,11 @@
 # @paulkre/gatsby-plugin-i18next
 
+## 2.1.0
+
+### Minor Changes
+
+- c4dfe6b: It is now possible to create custom pages for which the plugin will not automatically generate alternative translations.
+
 ## 2.0.1
 
 ### Patch Changes
