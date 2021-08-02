@@ -1,8 +1,7 @@
 import { CreatePageArgs, Page } from "gatsby";
-import { match } from "path-to-regexp";
 
 import type { I18nPageContext } from "../context";
-import { defaultPluginOptions, PageOptions, PluginOptions } from "../options";
+import { defaultPluginOptions, PluginOptions } from "../options";
 
 function isI18nPageContext(
   ctx: Record<string, unknown>
@@ -17,7 +16,7 @@ export function onCreatePage(
   //Exit if the page has already been processed.
   if (isI18nPageContext(page.context)) return;
 
-  const { defaultLanguage, defaultNS, languages, pages } = {
+  const { defaultLanguage, defaultNS, languages } = {
     ...defaultPluginOptions,
     ...pluginOptions,
   };
@@ -27,13 +26,11 @@ export function onCreatePage(
     path = page.path,
     originalPath = page.path,
     routed = false,
-    pageOptions,
   }: {
     language: string;
     path?: string;
     originalPath?: string;
     routed?: boolean;
-    pageOptions?: PageOptions;
   }): Page<I18nPageContext> {
     return {
       ...page,
@@ -44,7 +41,7 @@ export function onCreatePage(
         pagePath: path,
         i18n: {
           language,
-          languages: pageOptions?.languages || languages,
+          languages,
           defaultLanguage,
           defaultNS,
           routed,
@@ -55,41 +52,10 @@ export function onCreatePage(
     };
   }
 
-  const pageOptions = pages.find((opt) => match(opt.matchPath)(page.path));
-
-  let newPage;
-  let alternativeLanguages = languages.filter((lng) => lng !== defaultLanguage);
-
-  if (pageOptions?.excludeLanguages) {
-    alternativeLanguages = alternativeLanguages.filter(
-      (lng) => !pageOptions?.excludeLanguages?.includes(lng)
-    );
-  }
-
-  if (pageOptions?.languages)
-    alternativeLanguages = pageOptions.languages.filter(
-      (lng) => lng !== defaultLanguage
-    );
-
-  if (pageOptions?.getLanguageFromPath) {
-    const result = match<{ lang: string }>(pageOptions.matchPath)(page.path);
-    if (!result) return;
-    const language =
-      languages.find((lng) => lng === result.params.lang) || defaultLanguage;
-    const originalPath = page.path.replace(`/${language}`, "");
-    const routed = Boolean(result.params.lang);
-    newPage = generatePage({
-      language,
-      originalPath,
-      routed,
-      pageOptions,
-    });
-    if (routed || !pageOptions.excludeLanguages) {
-      alternativeLanguages = [];
-    }
-  } else {
-    newPage = generatePage({ language: defaultLanguage, pageOptions });
-  }
+  const newPage = generatePage({ language: defaultLanguage });
+  const alternativeLanguages = languages.filter(
+    (lng) => lng !== defaultLanguage
+  );
 
   try {
     deletePage(page);
@@ -103,10 +69,8 @@ export function onCreatePage(
       routed: true,
     });
 
-    const regexp = new RegExp("/404/?$");
-    if (regexp.test(translatedPage.path)) {
+    if (/\/404\/?$/.test(translatedPage.path))
       translatedPage.matchPath = `/${lng}/*`;
-    }
 
     createPage(translatedPage);
   });
