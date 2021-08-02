@@ -1,22 +1,21 @@
 import { CreatePageArgs, Page } from "gatsby";
 import { match } from "path-to-regexp";
 
-import type { PageContext } from "../page-context";
+import type { I18nPageContext } from "../context";
 import { defaultPluginOptions, PageOptions, PluginOptions } from "../options";
 
-function isPageContext(ctx: Record<string, unknown>): ctx is PageContext {
+function isI18nPageContext(
+  ctx: Record<string, unknown>
+): ctx is I18nPageContext {
   return typeof ctx.i18n === "object";
 }
 
 export function onCreatePage(
-  {
-    page,
-    actions: { createPage, deletePage },
-  }: CreatePageArgs<Record<string, unknown>>,
+  { page, actions: { createPage, deletePage } }: CreatePageArgs,
   pluginOptions: Partial<PluginOptions> = {}
 ) {
   //Exit if the page has already been processed.
-  if (isPageContext(page.context)) return;
+  if (isI18nPageContext(page.context)) return;
 
   const {
     defaultLanguage,
@@ -41,7 +40,7 @@ export function onCreatePage(
     originalPath?: string;
     routed?: boolean;
     pageOptions?: PageOptions;
-  }): Page<PageContext> {
+  }): Page<I18nPageContext> {
     return {
       ...page,
       path,

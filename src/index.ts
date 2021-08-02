@@ -1,4 +1,4 @@
-export { useI18nextContext } from "./context";
+export { useI18nextContext, I18nContext, I18nPageContext } from "./context";
 export * from "./provider";
 export {
   createI18nNodeFields,

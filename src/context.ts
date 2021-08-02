@@ -1,6 +1,6 @@
 import React from "react";
 
-export type I18nextContext = {
+export type I18nContext = {
   language: string;
   routed: boolean;
   languages: string[];
@@ -12,7 +12,13 @@ export type I18nextContext = {
   siteUrl?: string;
 };
 
-const Context = React.createContext<I18nextContext>({
+export type I18nPageContext = {
+  i18n: I18nContext;
+  language: string;
+  pagePath: string;
+};
+
+const Context = React.createContext<I18nContext>({
   language: "en",
   languages: ["en"],
   routed: false,

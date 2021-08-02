@@ -1,7 +1,7 @@
 import React from "react";
 import type { WrapPageElementBrowserArgs } from "gatsby";
 
-import { PageContext } from "../page-context";
+import { I18nPageContext } from "../context";
 import { I18nextContextProvider } from "../context";
 import { defaultPluginOptions, PluginOptions } from "../options";
 
@@ -9,7 +9,7 @@ export function wrapPageElement(
   {
     element,
     props: { pageContext },
-  }: WrapPageElementBrowserArgs<any, PageContext>,
+  }: WrapPageElementBrowserArgs<any, I18nPageContext>,
   pluginOptions: Partial<PluginOptions> = {}
 ): JSX.Element | null {
   const { routed, language, languages, originalPath, defaultLanguage, path } =
