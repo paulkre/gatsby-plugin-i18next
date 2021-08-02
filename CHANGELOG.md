@@ -1,5 +1,11 @@
 # @paulkre/gatsby-plugin-i18next
 
+## 2.1.2
+
+### Patch Changes
+
+- 43d33b0: The "originalPath" property is now correct when generating custom i18n pages.
+
 ## 2.1.1
 
 ### Patch Changes
