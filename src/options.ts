@@ -9,7 +9,6 @@ export type PluginOptions = {
   languages: string[];
   defaultLanguage: string;
   defaultNS: string;
-  siteUrl?: string;
   pages: Array<PageOptions>;
   translationJsonSourceName?: string;
 };

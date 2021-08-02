@@ -8,7 +8,6 @@ export type I18nContext = {
   defaultNS: string;
   originalPath: string;
   path: string;
-  siteUrl?: string;
 };
 
 export type I18nPageContext = {
