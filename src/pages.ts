@@ -3,7 +3,7 @@ import type { CreatePagesArgs } from "gatsby";
 export type I18nFileNode = {
   sourceInstanceName: string;
   extension: string;
-  fields: { originalPath: string; pagePath: string };
+  fields: { language: string; pagePath: string };
 };
 
 export function queryI18nFileNodes(
@@ -21,7 +21,7 @@ export function queryI18nFileNodes(
           sourceInstanceName
           extension
           fields {
-            originalPath
+            language
             pagePath
           }
         }
