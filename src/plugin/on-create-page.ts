@@ -42,6 +42,7 @@ export async function onCreatePage(
       context: {
         ...page.context,
         language,
+        pagePath: path,
         i18n: {
           language,
           languages: pageOptions?.languages || languages,
