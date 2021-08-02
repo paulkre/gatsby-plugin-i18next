@@ -40,7 +40,6 @@ export function onCreatePage(
     language,
     path = page.path,
     originalPath = page.path,
-    routed = false,
   }: {
     language: string;
     path?: string;
