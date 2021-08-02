@@ -1,8 +1,8 @@
 import React from "react";
 import i18next from "i18next";
-import { I18nextProvider as I18NextProviderBase } from "react-i18next";
+import { I18nextProvider as I18nextProviderBase } from "react-i18next";
 
-import { useI18nextContext } from "./context";
+import { useI18nContext } from "./context";
 
 export type TranslationData = {
   language: string;
@@ -14,7 +14,7 @@ export const I18nextProvider: React.FC<{ nodes: TranslationData[] }> = ({
   children,
   nodes,
 }) => {
-  const ctx = useI18nextContext();
+  const ctx = useI18nContext();
 
   const i18n = React.useMemo(() => {
     const { language, defaultLanguage, defaultNS } = ctx;
@@ -39,5 +39,5 @@ export const I18nextProvider: React.FC<{ nodes: TranslationData[] }> = ({
     return i18n;
   }, [nodes, ctx]);
 
-  return <I18NextProviderBase i18n={i18n}>{children}</I18NextProviderBase>;
+  return <I18nextProviderBase i18n={i18n}>{children}</I18nextProviderBase>;
 };

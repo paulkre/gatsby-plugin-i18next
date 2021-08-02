@@ -24,5 +24,5 @@ const Context = React.createContext<I18nFlatContext>({
   pagePath: "/",
 });
 
-export const { Provider: I18nextContextProvider } = Context;
-export const useI18nextContext = () => React.useContext(Context);
+export const { Provider: I18nContextProvider } = Context;
+export const useI18nContext = () => React.useContext(Context);

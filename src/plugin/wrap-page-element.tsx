@@ -2,7 +2,7 @@ import React from "react";
 import type { WrapPageElementBrowserArgs } from "gatsby";
 
 import { I18nPageContext } from "../context";
-import { I18nextContextProvider } from "../context";
+import { I18nContextProvider } from "../context";
 import { defaultPluginOptions, PluginOptions } from "../options";
 
 export function wrapPageElement(
@@ -14,20 +14,23 @@ export function wrapPageElement(
 ): JSX.Element | null {
   const {
     language,
-    i18n: { routed, languages, defaultLanguage },
+    originalPath,
+    pagePath,
+    i18n: { languages, defaultLanguage },
   } = pageContext;
 
   return (
-    <I18nextContextProvider
+    <I18nContextProvider
       value={{
-        routed,
         language,
+        originalPath,
+        pagePath,
         languages,
         defaultLanguage,
         defaultNS: pluginOptions.defaultNS || defaultPluginOptions.defaultNS,
       }}
     >
       {element}
-    </I18nextContextProvider>
+    </I18nContextProvider>
   );
 }
