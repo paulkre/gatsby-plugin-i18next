@@ -1,5 +1,11 @@
 # @paulkre/gatsby-plugin-i18next
 
+## 2.0.1
+
+### Patch Changes
+
+- fb9ceb9: Helper method "queryI18nFileNodes" has been fixed.
+
 ## 2.0.0
 
 ### Major Changes
