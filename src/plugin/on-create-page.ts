@@ -53,15 +53,12 @@ export function onCreatePage(
       context: {
         ...page.context,
         language,
+        originalPath,
         pagePath: path,
         i18n: {
-          language,
           languages,
           defaultLanguage,
           defaultNS,
-          routed,
-          originalPath,
-          path,
         },
       },
     };

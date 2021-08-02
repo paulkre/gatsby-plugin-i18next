@@ -1,29 +1,27 @@
 import React from "react";
 
 export type I18nContext = {
-  language: string;
-  routed: boolean;
   languages: string[];
   defaultLanguage: string;
   defaultNS: string;
-  originalPath: string;
-  path: string;
 };
 
 export type I18nPageContext = {
   i18n: I18nContext;
   language: string;
+  originalPath: string;
   pagePath: string;
 };
 
-const Context = React.createContext<I18nContext>({
+export type I18nFlatContext = Omit<I18nPageContext, "i18n"> & I18nContext;
+
+const Context = React.createContext<I18nFlatContext>({
   language: "en",
   languages: ["en"],
-  routed: false,
   defaultLanguage: "en",
   defaultNS: "translation",
   originalPath: "/",
-  path: "/",
+  pagePath: "/",
 });
 
 export const { Provider: I18nextContextProvider } = Context;

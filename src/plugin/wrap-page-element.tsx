@@ -12,13 +12,10 @@ export function wrapPageElement(
   }: WrapPageElementBrowserArgs<any, I18nPageContext>,
   pluginOptions: Partial<PluginOptions> = {}
 ): JSX.Element | null {
-  const { routed, language, languages, originalPath, defaultLanguage, path } =
-    pageContext.i18n;
-
-  const { defaultNS } = {
-    ...defaultPluginOptions,
-    ...pluginOptions,
-  };
+  const {
+    language,
+    i18n: { routed, languages, defaultLanguage },
+  } = pageContext;
 
   return (
     <I18nextContextProvider
@@ -26,10 +23,8 @@ export function wrapPageElement(
         routed,
         language,
         languages,
-        originalPath,
         defaultLanguage,
-        defaultNS,
-        path,
+        defaultNS: pluginOptions.defaultNS || defaultPluginOptions.defaultNS,
       }}
     >
       {element}
