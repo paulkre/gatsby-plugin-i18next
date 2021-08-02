@@ -1,5 +1,12 @@
 # @paulkre/gatsby-plugin-i18next
 
+## 3.0.0
+
+### Major Changes
+
+- 14bcca5: Most occurrences of the term "I18next" have been renamed to "I18n".
+- 1444f0c: The structure of the i18n page context has changed to expose values for querying.
+
 ## 2.2.0
 
 ### Minor Changes
