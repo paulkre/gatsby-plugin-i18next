@@ -15,7 +15,7 @@ export function wrapPageElement(
   const { routed, language, languages, originalPath, defaultLanguage, path } =
     pageContext.i18n;
 
-  const { generateDefaultLanguagePage, defaultNS, siteUrl } = {
+  const { defaultNS, siteUrl } = {
     ...defaultPluginOptions,
     ...pluginOptions,
   };
@@ -29,7 +29,6 @@ export function wrapPageElement(
         originalPath,
         defaultLanguage,
         defaultNS,
-        generateDefaultLanguagePage,
         siteUrl,
         path,
       }}

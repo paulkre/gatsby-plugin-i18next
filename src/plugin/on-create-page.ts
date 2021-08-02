@@ -17,13 +17,7 @@ export function onCreatePage(
   //Exit if the page has already been processed.
   if (isI18nPageContext(page.context)) return;
 
-  const {
-    defaultLanguage,
-    defaultNS,
-    generateDefaultLanguagePage,
-    languages,
-    pages,
-  } = {
+  const { defaultLanguage, defaultNS, languages, pages } = {
     ...defaultPluginOptions,
     ...pluginOptions,
   };
@@ -53,7 +47,6 @@ export function onCreatePage(
           languages: pageOptions?.languages || languages,
           defaultLanguage,
           defaultNS,
-          generateDefaultLanguagePage,
           routed,
           originalPath,
           path,
@@ -65,9 +58,7 @@ export function onCreatePage(
   const pageOptions = pages.find((opt) => match(opt.matchPath)(page.path));
 
   let newPage;
-  let alternativeLanguages = generateDefaultLanguagePage
-    ? languages
-    : languages.filter((lng) => lng !== defaultLanguage);
+  let alternativeLanguages = languages.filter((lng) => lng !== defaultLanguage);
 
   if (pageOptions?.excludeLanguages) {
     alternativeLanguages = alternativeLanguages.filter(
@@ -75,11 +66,10 @@ export function onCreatePage(
     );
   }
 
-  if (pageOptions?.languages) {
-    alternativeLanguages = generateDefaultLanguagePage
-      ? pageOptions.languages
-      : pageOptions.languages.filter((lng) => lng !== defaultLanguage);
-  }
+  if (pageOptions?.languages)
+    alternativeLanguages = pageOptions.languages.filter(
+      (lng) => lng !== defaultLanguage
+    );
 
   if (pageOptions?.getLanguageFromPath) {
     const result = match<{ lang: string }>(pageOptions.matchPath)(page.path);

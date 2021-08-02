@@ -6,7 +6,6 @@ export type I18nContext = {
   languages: string[];
   defaultLanguage: string;
   defaultNS: string;
-  generateDefaultLanguagePage: boolean;
   originalPath: string;
   path: string;
   siteUrl?: string;
@@ -24,7 +23,6 @@ const Context = React.createContext<I18nContext>({
   routed: false,
   defaultLanguage: "en",
   defaultNS: "translation",
-  generateDefaultLanguagePage: false,
   originalPath: "/",
   path: "/",
 });
