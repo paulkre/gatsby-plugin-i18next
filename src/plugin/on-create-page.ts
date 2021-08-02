@@ -1,16 +1,22 @@
 import { CreatePageArgs, Page } from "gatsby";
-import BP from "bluebird";
 import { match } from "path-to-regexp";
 
 import type { PageContext } from "../page-context";
 import { defaultPluginOptions, PageOptions, PluginOptions } from "../options";
 
-export async function onCreatePage(
-  { page, actions: { createPage, deletePage } }: CreatePageArgs<PageContext>,
+function isPageContext(ctx: Record<string, unknown>): ctx is PageContext {
+  return typeof ctx.i18n === "object";
+}
+
+export function onCreatePage(
+  {
+    page,
+    actions: { createPage, deletePage },
+  }: CreatePageArgs<Record<string, unknown>>,
   pluginOptions: Partial<PluginOptions> = {}
 ) {
   //Exit if the page has already been processed.
-  if (typeof page.context.i18n === "object") return;
+  if (isPageContext(page.context)) return;
 
   const {
     defaultLanguage,
@@ -23,7 +29,7 @@ export async function onCreatePage(
     ...pluginOptions,
   };
 
-  const generatePage = async ({
+  function generatePage({
     language,
     path = page.path,
     originalPath = page.path,
@@ -35,7 +41,7 @@ export async function onCreatePage(
     originalPath?: string;
     routed?: boolean;
     pageOptions?: PageOptions;
-  }): Promise<Page<PageContext>> => {
+  }): Page<PageContext> {
     return {
       ...page,
       path,
@@ -55,7 +61,7 @@ export async function onCreatePage(
         },
       },
     };
-  };
+  }
 
   const pageOptions = pages.find((opt) => match(opt.matchPath)(page.path));
 
@@ -83,7 +89,7 @@ export async function onCreatePage(
       languages.find((lng) => lng === result.params.lang) || defaultLanguage;
     const originalPath = page.path.replace(`/${language}`, "");
     const routed = Boolean(result.params.lang);
-    newPage = await generatePage({
+    newPage = generatePage({
       language,
       originalPath,
       routed,
@@ -93,7 +99,7 @@ export async function onCreatePage(
       alternativeLanguages = [];
     }
   } else {
-    newPage = await generatePage({ language: defaultLanguage, pageOptions });
+    newPage = generatePage({ language: defaultLanguage, pageOptions });
   }
 
   try {
@@ -101,16 +107,18 @@ export async function onCreatePage(
   } catch {}
   createPage(newPage);
 
-  await BP.map(alternativeLanguages, async (lng) => {
-    const localePage = await generatePage({
+  alternativeLanguages.forEach((lng) => {
+    const translatedPage = generatePage({
       language: lng,
-      path: `${lng}${page.path}`,
+      path: `/${lng}${page.path}`,
       routed: true,
     });
+
     const regexp = new RegExp("/404/?$");
-    if (regexp.test(localePage.path)) {
-      localePage.matchPath = `/${lng}/*`;
+    if (regexp.test(translatedPage.path)) {
+      translatedPage.matchPath = `/${lng}/*`;
     }
-    createPage(localePage);
+
+    createPage(translatedPage);
   });
 }
