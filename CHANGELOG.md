@@ -1,5 +1,11 @@
 # @paulkre/gatsby-plugin-i18next
 
+## 2.2.0
+
+### Minor Changes
+
+- 86227ff: The original path of a i18n file node is now provided in the query function.
+
 ## 2.1.2
 
 ### Patch Changes
