@@ -1,4 +1,4 @@
-import type { Node, Actions, CreatePagesArgs } from "gatsby";
+import type { Node, Actions, CreatePagesArgs, Page } from "gatsby";
 
 // Taken from https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-source-filesystem/index.d.ts
 // No way to refer it without directly depending on gatsby-source-filesystem.
@@ -67,13 +67,15 @@ export type I18nFileNode = {
 
 export function queryI18nFileNodes(
   graphql: CreatePagesArgs["graphql"],
-  defaultLanguage: string
+  language?: string
 ): Promise<I18nFileNode[]> {
   return graphql<{ i18nFiles: { nodes: I18nFileNode[] } }>(`
     query {
       i18nFiles: allFile(
         filter: {
-          fields: { language: { eq: "${defaultLanguage}" } }
+          fields: { language: { ${
+            language ? `eq: "${language}"` : "ne: null"
+          } } }
         }
       ) {
         nodes {
