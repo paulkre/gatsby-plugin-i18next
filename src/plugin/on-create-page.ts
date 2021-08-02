@@ -4,6 +4,7 @@ import type { I18nPageContext } from "../context";
 import { defaultPluginOptions, PluginOptions } from "../options";
 
 export type I18nBlueprintContext = Record<string, unknown> & {
+  originalPath: string;
   language: string;
 };
 
@@ -16,7 +17,11 @@ function isI18nPageContext(
 function isI18nBlueprintContext(
   ctx: Record<string, unknown>
 ): ctx is I18nBlueprintContext {
-  return typeof ctx.language === "string" && ctx.language.length === 2;
+  return (
+    typeof ctx.language === "string" &&
+    ctx.language.length === 2 &&
+    typeof ctx.originalPath === "string"
+  );
 }
 
 export function onCreatePage(
@@ -67,7 +72,12 @@ export function onCreatePage(
   } catch {}
 
   if (isI18nBlueprintContext(page.context)) {
-    createPage(generatePage({ language: page.context.language }));
+    createPage(
+      generatePage({
+        language: page.context.language,
+        originalPath: page.context.originalPath,
+      })
+    );
     return;
   }
 
